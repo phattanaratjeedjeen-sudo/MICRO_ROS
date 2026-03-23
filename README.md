@@ -1,6 +1,8 @@
-## Micro ros setup
->note: this package was tested on ros2 jazzy with ubuntu 24.04 and ESP32
+## Overview
+This package is built for implementing micro ros in ESP32 with platformIO to control hardware using CANBUS propocal.
+Test environment: ros2 jazzy with ubuntu 24.04 
 
+## Micro ros setup
 ```bash
 source /opt/ros/jazzy/setup.bash
 ```
@@ -238,3 +240,11 @@ groups
 pio run --target upload
 ```
 
+## Run agent
+
+```bash
+ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyUSB0
+```
+
+>note: 
+>must flash firmware before run agent
