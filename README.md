@@ -1,11 +1,25 @@
 ## Overview
-This package is built for implementing micro ros in ESP32 with platformIO to control hardware using CANBUS propocal.
-Test environment: ros2 jazzy with ubuntu 24.04 
+This package is built for implementing micro ros in ESP32 with platformIO to control hardware using CAN BUS propocal.
+>note: 
+>Test environment: ros2 jazzy with ubuntu 24.04 
 
 **Reference**
 - [MKS-SERVO45D-57D](https://github.com/makerbase-motor/MKS-SERVO42D-57D)
 - [micro-ROS](https://github.com/micro-ROS)
 
+**File Structure**
+```bash
+~/uros_ws/firmware
+.
+├── COLCON_IGNORE
+└── Hardware_control    --> Project
+    ├── include
+    │   ├── header.h
+    ├── lib
+    ├── platformio.ini
+    ├── src
+        └── main.cpp    --> Microcontroller firmware
+```
 ## Micro ros setup
 ```bash
 source /opt/ros/jazzy/setup.bash
