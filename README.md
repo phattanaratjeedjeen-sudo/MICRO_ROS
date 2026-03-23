@@ -2,6 +2,10 @@
 This package is built for implementing micro ros in ESP32 with platformIO to control hardware using CANBUS propocal.
 Test environment: ros2 jazzy with ubuntu 24.04 
 
+**Reference**
+- [MKS-SERVO45D-57D](https://github.com/makerbase-motor/MKS-SERVO42D-57D)
+- [micro-ROS](https://github.com/micro-ROS)
+
 ## Micro ros setup
 ```bash
 source /opt/ros/jazzy/setup.bash
@@ -13,7 +17,7 @@ mkdir uros_ws && cd uros_ws
 ```
 
 ```bash
-git clone -b jazzy ://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
+git clone -b jazzy https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
 ```
 
 Install rosdep

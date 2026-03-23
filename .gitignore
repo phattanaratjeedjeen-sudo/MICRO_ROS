@@ -1,4 +1,16 @@
+# Ignore build folders
+.pio/
 build/
 install/
 log/
-.pio/
+
+# Ignore official micro-ROS tools
+src/micro_ros_setup/
+src/uros/micro-ROS-Agent/
+src/uros/micro_ros_msgs/
+src/uros/drive_base
+MKS-SERVO42D-57D/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
