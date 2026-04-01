@@ -31,7 +31,9 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
   RCLC_UNUSED(last_call_time);
   if (timer != NULL) {
     RCSOFTCHECK(rcl_publish(&publisher, &msgout, NULL));
-    msgout.data++;
+    msgout.data = msgin.data;
+    Serial.print("Published: ");
+    Serial.println(msgout.data);
   }
 }
 
@@ -50,6 +52,7 @@ void setup() {
 
   // Configure serial transport
   Serial.begin(115200);
+  Serial2.begin(115200);
   set_microros_serial_transports(Serial);
   delay(2000);
 
@@ -69,27 +72,30 @@ void setup() {
     "", 
     &support));
 
-  // create publisher
-  RCCHECK(rclc_publisher_init_default(
+  // create publisher with best effort QoS (sensor data profile)
+  RCCHECK(rclc_publisher_init(
     &publisher,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-    "micro_ros_platformio_node_publisher"));
+    "joint_states",
+    &rmw_qos_profile_system_default));
 
   // create timer,
-  const unsigned int timer_timeout = 1000;
-  RCCHECK(rclc_timer_init_default(
+  const unsigned int timer_timeout = 50;
+  RCCHECK(rclc_timer_init_default2(
     &timer,
     &support,
     RCL_MS_TO_NS(timer_timeout),
-    timer_callback));
+    timer_callback,
+    true));
 
-  // create subscriber
-  RCCHECK(rclc_subscription_init_default(
+  // create subscriber with best effort QoS (sensor data profile)
+  RCCHECK(rclc_subscription_init(
     &subscriber,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-    "micro_ros_arduino_subscriber"));
+    "motor",
+    &rmw_qos_profile_sensor_data));
 
   // create executor
   RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
@@ -100,5 +106,5 @@ void setup() {
 }
 
 void loop() {
-  RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(10)));
+  RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(5)));
 }
